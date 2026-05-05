@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The canvas stays behind everything */
+.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* This allows mouse/scroll events to "pass through" the main content div */
+.content-wrapper {
+  pointer-events: none;
+}
+
+/* This makes sure that actual content (buttons, links, etc.) is still clickable */
+.content-wrapper > * {
+  pointer-events: auto;
+}
+
+/* A dark fallback color for the body */
+body {
+    background-color: #0c0a09;
+}
