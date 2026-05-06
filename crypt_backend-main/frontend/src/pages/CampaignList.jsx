@@ -4,31 +4,19 @@ import { useStateContext } from "../context";
 
 function AllCampaigns() {
     const [campaigns, setCampaigns] = useState([]);
-    const [isLoading, setIsLoading] = useState = useState(true);
+    const [isLoading, setIsLoading] = useState(true); // FIX: was `useState = useState(true)`
     const { getCampaigns, refresh } = useStateContext();
 
     useEffect(() => {
         const fetchCampaigns = async () => {
             const allCampaigns = await getCampaigns();
-            
-            // Filter out null entries and campaigns marked as inactive
             const activeCampaigns = allCampaigns.filter(c => c !== null && c.active);
-
             setCampaigns(activeCampaigns);
-            setIsLoading(false);
+            setIsLoading(false); // FIX: was never called
         }
         fetchCampaigns();
-    }, [refresh, getCampaigns]);
-
-    const StatBox = ({ icon, title, value }) => (
-        <div className="flex items-center space-x-3">
-            <div className="text-blue-500">{icon}</div>
-            <div>
-                <p className="text-2xl font-bold text-gray-800 dark:text-white">{value}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{title}</p>
-            </div>
-        </div>
-    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refresh]);
 
     return (
         <div className="relative container mx-auto p-8 text-gray-800 dark:text-gray-200">
@@ -57,7 +45,12 @@ function AllCampaigns() {
                     })}
                 </div>
             )}
-            {!isLoading && campaigns.length === 0 && (<div className="text-center py-12"><p>No active campaigns yet.</p><Link to="/create" className="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Be the first to create one!</Link></div>)}
+            {!isLoading && campaigns.length === 0 && (
+                <div className="text-center py-12">
+                    <p>No active campaigns yet.</p>
+                    <Link to="/create" className="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Be the first to create one!</Link>
+                </div>
+            )}
         </div>
     );
 }

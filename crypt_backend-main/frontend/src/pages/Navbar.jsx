@@ -32,7 +32,7 @@
               Create Campaign
             </Link>
             <Link
-              to="/contact" // <--- ADDED LINK
+              to="/contact" 
               className="hidden sm:block hover:text-blue-400 transition font-medium"
             >
               Help/Contact
